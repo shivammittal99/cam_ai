@@ -38,7 +38,7 @@ def split_by_manifest(filename, manifest, vcodec="copy", acodec="copy",
             print "Format not supported. File must be a csv or json file"
             raise SystemExit
 
-        split_cmd = "ffmpeg -threads 2 -v 0 -i '%s' -vcodec %s -acodec %s " % (filename,
+        split_cmd = "ffmpeg -threads 4 -v 0 -y -i '%s' -vcodec %s -acodec %s " % (filename,
                                                                   vcodec,
                                                                   acodec)
         split_count = 1
@@ -107,7 +107,7 @@ def split_by_seconds(filename, split_length, vcodec="copy", acodec="copy",
         print "Video length is less then the target split length."
         raise SystemExit
 
-    split_cmd = "ffmpeg -i '%s' -vcodec %s -acodec %s %s" % (filename, vcodec,
+    split_cmd = "ffmpeg -threads 4 -v 0 -y -i '%s' -vcodec %s -acodec %s %s" % (filename, vcodec,
                                                            acodec, extra)
     try:
         filebase = ".".join(filename.split(".")[:-1])

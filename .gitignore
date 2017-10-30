@@ -1,0 +1,6 @@
+*.pyc
+./videos/source/*
+./videos/inbound/*
+./videos/videos3/*
+./videos/data/*
+./videos/gentle/*
