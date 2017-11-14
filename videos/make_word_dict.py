@@ -9,8 +9,8 @@ def align_time(filename):
     os.system('python gentle/align.py '+filename+'.mp4 '+filename+'.txt -o ./source_temp/align_'+temp+'.json')
 
 def create_manifest(filename, words_dict):
-    filename = filename.split('/')[-1]
-    f = open('./source_temp/align_'+filename+'.json', 'r')
+    f = open(filename, 'r')
+    filename = filename[20:-5]
     data = json.load(f)
 
     cnt = 0
@@ -28,27 +28,25 @@ def create_manifest(filename, words_dict):
 
 def update_videos():
     words_dict = {}
-    try:
-        file_dict_fileobj = open('file_dict_temp1.pkl', 'rb')
-        file_dict = pkl.load(file_dict_fileobj)
-        file_dict_fileobj.close()
-    except:
-        file_dict = {}
+    #try:
+    #    file_dict_fileobj = open('file_dict_temp1.pkl', 'rb')
+    #    file_dict = pkl.load(file_dict_fileobj)
+    #    file_dict_fileobj.close()
+    #except:
+    #    file_dict = {}
 
-    #filenames = glob.glob('./source_temp/*.mp4')
-    filenames = pkl.load(open('file_dict_temp.pkl', 'rb')).keys()
-    print ("hello", filenames, len(filenames))
+    filenames = glob.glob('./source_temp/align_*.json')
+    #filenames = pkl.load(open('file_dict_temp.pkl', 'rb')).keys()
+    #print ("hello", filenames, len(filenames))
     cnt = 1
     for i in filenames:
-        if not file_dict.get(i, False):
-            file_dict[i] = True
-            print i, cnt
-            cnt += 1
-            create_manifest(i[:-4], words_dict)
+    	print i, cnt
+	cnt += 1
+    	create_manifest(i, words_dict)
 
-    file_dict_fileobj = open('file_dict_temp1.pkl', 'wb')
-    pkl.dump(file_dict, file_dict_fileobj)
-    file_dict_fileobj.close()
+    #file_dict_fileobj = open('file_dict_temp1.pkl', 'wb')
+    #pkl.dump(file_dict, file_dict_fileobj)
+    #file_dict_fileobj.close()
 
     dict_file = open('words_dict_temp2.pkl', 'wb')
     pkl.dump(words_dict, dict_file)
