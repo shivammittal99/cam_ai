@@ -10,7 +10,7 @@ from nltk.stem.snowball import SnowballStemmer
 import math
 
 app = Flask(__name__)
-rootUrl = "http://40.71.87.18:5000"
+rootUrl = "http://52.226.128.177:5000"
 dict_file = open('./videos/words_dict_temp2.pkl', 'rb')
 words_dict = load(dict_file)
 dict_file.close()
@@ -75,6 +75,7 @@ def process(string1, name, com):
                 haha.close()
                 #audio_time -= audio_time%0.25
                 audio_time = math.ceil(audio_time * 4) / 4.0
+                audio_time = min(audio_time, max(unfound_dict))
                 unfound_filename = random.choice(unfound_dict[audio_time])
                 unfound_filename = './videos/unfound' + unfound_filename[1:]
                 str1 = ('ffmpeg -y -i ' + unfound_filename + ' -i out.mp3 -map 0:0 -map 1:0 -c:v copy -c:a aac -shortest -strict -2 ./waste/' + unfound_filename[17:-4] + str(file_no_var) + '.mp4')
@@ -94,6 +95,7 @@ def process(string1, name, com):
             haha.close()
             #audio_time -= audio_time%0.25
             audio_time = math.ceil(audio_time * 4) / 4.0
+            audio_time = min(audio_time, max(unfound_dict))
             unfound_filename = random.choice(unfound_dict[audio_time])
             unfound_filename = './videos/unfound' + unfound_filename[1:]
             str1 = ('ffmpeg -y -i ' + unfound_filename + ' -i out.mp3 -map 0:0 -map 1:0 -c:v copy -c:a aac -shortest -strict -2 ./waste/' + unfound_filename[17:-4] + str(file_no_var) + '.mp4')

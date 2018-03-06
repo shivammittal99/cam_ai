@@ -10,7 +10,7 @@ from nltk.stem.snowball import SnowballStemmer
 import math
 
 app = Flask(__name__)
-rootUrl = "http://40.71.87.18:5000"
+rootUrl = "http://52.226.128.177:5000"
 dict_file = open('./videos/words_dict_temp1.pkl', 'rb')
 words_dict = load(dict_file)
 dict_file.close()
