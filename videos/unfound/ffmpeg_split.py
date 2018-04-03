@@ -38,7 +38,7 @@ def split_by_manifest(filename, manifest, vcodec="copy", acodec="copy",
             print "Format not supported. File must be a csv or json file"
             raise SystemExit
 
-        split_cmd = "ffmpeg -threads 4 -v 0 -i '%s' -vcodec %s -acodec %s " % (filename,
+        split_cmd = "ffmpeg -threads 2 -i '%s' -vcodec %s -acodec %s " % (filename,
                                                                   vcodec,
                                                                   acodec)
         split_count = 1

@@ -33,8 +33,9 @@ def split_files(filename):
     ffmpeg_split.split_by_manifest(filename+'.mp4', 'manifest_temp.json', vcodec='h264')
 
 def update_videos():
-    filenames = glob.glob('./*.mp4')
+    filenames = open('new_videos.txt', 'r').readlines()
     for f in filenames:
+    	f = f[:-1]
         try:
             dict_fileobj = open('unfound_dict.pkl', 'rb')
             unfound_dict = pkl.load(dict_fileobj)
@@ -43,14 +44,14 @@ def update_videos():
             unfound_dict = {}
         manifest = []
         cnt = 0
-        for i in range(1, 7):
+        for i in range(7, 13):
             m = open('manifest_temp.json', 'w')
             for j in range(48/i):
                 duration = i*0.25
                 name = f[:-4] + str(cnt) + '_' + str(duration) + '.mp4'
                 dic = {'start_time':0.25*j*i, 'length':duration, 'rename_to':name}
                 unfound_dict[duration] = unfound_dict.get(duration, [])
-                unfound_dict[duration].append(name)
+                unfound_dict[duration].append('./' + name)
                 manifest.append(dic)
                 cnt += 1
         json.dump(manifest, m)
